@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/cocktail_Page">
+
+    <fragment
+        android:id="@+id/cocktail_Page"
+        android:name="fr.graux.cocktailscornerproject.Cocktail_Page"
+        android:label="fragment_cocktail__page"
+        tools:layout="@layout/fragment_cocktail__page" />
+    <fragment
+        android:id="@+id/map_Page"
+        android:name="fr.graux.cocktailscornerproject.Map_Page"
+        android:label="fragment_map__page"
+        tools:layout="@layout/fragment_map__page" />
+    <fragment
+        android:id="@+id/setting_Page"
+        android:name="fr.graux.cocktailscornerproject.Setting_Page"
+        android:label="fragment_setting__page"
+        tools:layout="@layout/fragment_setting__page" />
+</navigation>
