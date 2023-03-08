@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 
 
-class cocktailAdpater(context: Context, arrayListDetails:ArrayList<CocktailObject> ): BaseAdapter() {
+class CocktailAdpater(context: Context, arrayListDetails:ArrayList<CocktailObject> ): BaseAdapter() {
 
     private val layoutInflater: LayoutInflater
     private val arrayListDetails:ArrayList<CocktailObject>
@@ -25,7 +25,7 @@ class cocktailAdpater(context: Context, arrayListDetails:ArrayList<CocktailObjec
     }
 
     override fun getItem(position: Int): Any {
-        return arrayListDetails.get(position)
+        return arrayListDetails[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -44,20 +44,20 @@ class cocktailAdpater(context: Context, arrayListDetails:ArrayList<CocktailObjec
             listRowHolder = view.tag as ListRowHolder
         }
 
-        listRowHolder.cocktailNom.text = arrayListDetails.get(position).nom
-        Picasso.get().load(arrayListDetails.get(position).imageUrl).into(listRowHolder.cocktailImage)
+        listRowHolder.cocktailNom.text = arrayListDetails[position].nom
+        Picasso.get().load(arrayListDetails[position].imageUrl).into(listRowHolder.cocktailImage)
 
 
         return view
     }
 
     private class ListRowHolder(row: View?) {
-        public val cocktailNom: TextView
-        public val cocktailImage: ImageView
+         val cocktailNom: TextView
+         val cocktailImage: ImageView
 
         init {
-            this.cocktailNom = row?.findViewById<TextView>(R.id.cocktailNom) as TextView
-            this.cocktailImage = row?.findViewById<ImageView>(R.id.cocktailImage) as ImageView
+            this.cocktailNom = row?.findViewById(R.id.cocktailNom) as TextView
+            this.cocktailImage = row.findViewById(R.id.cocktailImage) as ImageView
         }
     }
 }

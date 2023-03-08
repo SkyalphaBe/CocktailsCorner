@@ -1,6 +1,6 @@
 package fr.graux.cocktailscornerproject
 
-public class CocktailObject{
+ class CocktailObject{
 
     lateinit var nom : String
     lateinit var imageUrl : String

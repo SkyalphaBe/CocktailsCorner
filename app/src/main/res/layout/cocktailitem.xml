@@ -33,6 +33,7 @@
 
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
+                android:contentDescription="@string/une_image_de_cocktail"
                 tools:srcCompat="@tools:sample/avatars" />
         </androidx.cardview.widget.CardView>
 
@@ -42,7 +43,7 @@
             android:layout_height="54dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="60dp"
-            android:text="NomCocktail"
+            android:text="@string/nomcocktail"
             android:textSize="24sp" />
 
     </LinearLayout>

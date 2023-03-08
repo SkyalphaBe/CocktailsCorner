@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CocktailsCornerProject</string>
+    <string name="nomcocktail">NomCocktail</string>
+    <string name="une_image_de_cocktail">une image de cocktail</string>
 </resources>

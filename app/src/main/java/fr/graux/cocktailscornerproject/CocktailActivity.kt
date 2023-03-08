@@ -11,27 +11,18 @@ import java.io.IOException
 
 class CocktailActivity : AppCompatActivity()  {
 
-    lateinit var listView_details: ListView
-    var arrayList_details:ArrayList<CocktailObject> = ArrayList();
-    val client = OkHttpClient()
+    lateinit var detailsListView: ListView
+    var detailsArrayList:ArrayList<CocktailObject> = ArrayList()
+    private val client = OkHttpClient()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cocktail)
-
-        listView_details = findViewById<ListView>(R.id.listCocktail) as ListView
-        run("https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic")
-
-
-
-
-
-
+        detailsListView = findViewById(R.id.listCocktail)
+        run()
     }
 
-
-
-
-    fun run(url: String) {
+    private fun run() {
+        val url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic"
         val request = Request.Builder()
             .url(url)
             .build()
@@ -42,27 +33,26 @@ class CocktailActivity : AppCompatActivity()  {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                var str_response = response.body()!!.string()
+                val reponseString = response.body()!!.string()
                 //creating json object
-                val json_contact: JSONObject = JSONObject(str_response)
+                val contactJSON= JSONObject(reponseString)
                 //creating json array
-                var jsonarray_info: JSONArray = json_contact.getJSONArray("drinks")
-                var i:Int = 0
-                var size:Int = jsonarray_info.length()
-                arrayList_details= ArrayList();
-                for (i in 0.. size-1) {
-                    var json_objectdetail: JSONObject =jsonarray_info.getJSONObject(i)
-                    var cocktail:CocktailObject= CocktailObject();
-                    cocktail.nom=json_objectdetail.getString("strDrink")
-                    cocktail.imageUrl=json_objectdetail.getString("strDrinkThumb")
-                    arrayList_details.add(cocktail)
+                val infoJSONArray: JSONArray = contactJSON.getJSONArray("drinks")
+                val size:Int = infoJSONArray.length()
+                detailsArrayList= ArrayList()
+                for (i in 0 until size) {
+                    val objectDetailJSON: JSONObject =infoJSONArray.getJSONObject(i)
+                    val cocktail= CocktailObject()
+                    cocktail.nom=objectDetailJSON.getString("strDrink")
+                    cocktail.imageUrl=objectDetailJSON.getString("strDrinkThumb")
+                    detailsArrayList.add(cocktail)
                 }
 
                 runOnUiThread {
                     //stuff that updates ui
-                    val obj_adapter : cocktailAdpater
-                    obj_adapter = cocktailAdpater(applicationContext,arrayList_details)
-                    listView_details.adapter=obj_adapter
+                    val objectAdapter =
+                        CocktailAdpater(applicationContext,detailsArrayList)
+                    detailsListView.adapter=objectAdapter
                 }
             }
         })
