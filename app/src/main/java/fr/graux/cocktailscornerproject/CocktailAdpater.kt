@@ -10,10 +10,10 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 
 
-class cocktailAdpater(context: Context, arrayListDetails:ArrayList<ObjectCocktail> ): BaseAdapter() {
+class cocktailAdpater(context: Context, arrayListDetails:ArrayList<CocktailObject> ): BaseAdapter() {
 
     private val layoutInflater: LayoutInflater
-    private val arrayListDetails:ArrayList<ObjectCocktail>
+    private val arrayListDetails:ArrayList<CocktailObject>
 
     init {
         this.layoutInflater = LayoutInflater.from(context)
@@ -43,8 +43,10 @@ class cocktailAdpater(context: Context, arrayListDetails:ArrayList<ObjectCocktai
             view = convertView
             listRowHolder = view.tag as ListRowHolder
         }
+
         listRowHolder.cocktailNom.text = arrayListDetails.get(position).nom
         Picasso.get().load(arrayListDetails.get(position).imageUrl).into(listRowHolder.cocktailImage)
+
 
         return view
     }

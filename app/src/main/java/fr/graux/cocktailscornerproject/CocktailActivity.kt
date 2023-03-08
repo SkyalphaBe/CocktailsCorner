@@ -1,36 +1,69 @@
 package fr.graux.cocktailscornerproject
 
-import android.util.Log
-import fr.graux.cocktailscornerproject.cocktailAPI.cocktailService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import android.os.Bundle
+import android.widget.ListView
+import androidx.appcompat.app.AppCompatActivity
+import okhttp3.*
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.IOException
 
 
-class CocktailActivity {
+class CocktailActivity : AppCompatActivity()  {
 
-    private fun loadCocktails() {
-        //initiate the service
-        val destinationService  = ServiceBuilder.buildService(cocktailService::class.java)
-        val requestCall =destinationService.getCocktailsList()
-        //make network call asynchronously
-        requestCall.enqueue(object : Callback<List<ObjectCocktail>> {
-            override fun onResponse(call: Call<List<ObjectCocktail>>, response: Response<List<ObjectCocktail>>) {
-                Log.d("Response", "onResponse: ${response.body()}")
-                if (response.isSuccessful){
-                    val cocktailList= response.body()!!
-                    Log.d("Response", "cocktail : ${cocktailList.size}")
-//                    country_recycler.apply {
-//                        setHasFixedSize(true)
-//                        layoutManager = GridLayoutManager(this@CocktailActivity,2)
-//                        adapter = cocktailAdpater(response.body()!!)
-//                    }
-                }else{
-//                    Toast.makeText(this@MainActivity, "Something went wrong ${response.message()}", Toast.LENGTH_SHORT).show()
-                }
+    lateinit var listView_details: ListView
+    var arrayList_details:ArrayList<CocktailObject> = ArrayList();
+    val client = OkHttpClient()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_cocktail)
+
+        listView_details = findViewById<ListView>(R.id.listCocktail) as ListView
+        run("https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic")
+
+
+
+
+
+
+    }
+
+
+
+
+    fun run(url: String) {
+        val request = Request.Builder()
+            .url(url)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+
             }
-            override fun onFailure(call: Call<List<ObjectCocktail>>, t: Throwable) {
-//                Toast.makeText(this@MainActivity, "Something went wrong $t", Toast.LENGTH_SHORT).show()
+
+            override fun onResponse(call: Call, response: Response) {
+                var str_response = response.body()!!.string()
+                //creating json object
+                val json_contact: JSONObject = JSONObject(str_response)
+                //creating json array
+                var jsonarray_info: JSONArray = json_contact.getJSONArray("drinks")
+                var i:Int = 0
+                var size:Int = jsonarray_info.length()
+                arrayList_details= ArrayList();
+                for (i in 0.. size-1) {
+                    var json_objectdetail: JSONObject =jsonarray_info.getJSONObject(i)
+                    var cocktail:CocktailObject= CocktailObject();
+                    cocktail.nom=json_objectdetail.getString("strDrink")
+                    cocktail.imageUrl=json_objectdetail.getString("strDrinkThumb")
+                    arrayList_details.add(cocktail)
+                }
+
+                runOnUiThread {
+                    //stuff that updates ui
+                    val obj_adapter : cocktailAdpater
+                    obj_adapter = cocktailAdpater(applicationContext,arrayList_details)
+                    listView_details.adapter=obj_adapter
+                }
             }
         })
     }
