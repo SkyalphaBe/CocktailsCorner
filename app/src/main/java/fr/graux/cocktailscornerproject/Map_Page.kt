@@ -2,7 +2,11 @@ package fr.graux.cocktailscornerproject
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Criteria
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +15,7 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.LatLng
 
 class Map_Page : Fragment(),
     OnMapReadyCallback,
@@ -94,6 +99,12 @@ class Map_Page : Fragment(),
     }
 
     private fun zoomToCurrentLocation(){
-
+        val locationManager:LocationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val criteria:Criteria = Criteria()
+        val location:Location? = locationManager.getBestProvider(criteria,false)
+            ?.let { locationManager.getLastKnownLocation(it) }
+        if (location != null) {
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude,location.longitude),17.0f))
+        }
     }
 }
