@@ -55,7 +55,7 @@
                     android:text="@string/color_settings">
                 </TextView>
                 <Switch
-                    android:id="@+id/switch2"
+                    android:id="@+id/colorbindSwitch"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:textColor="#8D8D92"
@@ -66,7 +66,7 @@
                     tools:ignore="UseSwitchCompatOrMaterialXml">
                 </Switch>
                 <Switch
-                    android:id="@+id/switch3"
+                    android:id="@+id/darkModeSwitch"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:textColor="#8D8D92"
