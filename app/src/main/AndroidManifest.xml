@@ -41,6 +41,8 @@
         </activity>
 
 
+        <service android:name="Map_Page"
+            android:foregroundServiceType="location"/>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
