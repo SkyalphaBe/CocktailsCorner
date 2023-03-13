@@ -7,13 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import fr.graux.cocktailscornerproject.databinding.ActivityMainBinding
+import fr.graux.cocktailscornerproject.databinding.DetailCocktailBinding
 import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 
-class Cocktail_Page : Fragment(R.layout.fragment_cocktail__page) {
+class Cocktail_Page : Fragment(R.layout.fragment_cocktail__page){
+
 
     lateinit var detailsListView: ListView
     var detailsArrayList:ArrayList<CocktailObject> = ArrayList()
@@ -33,6 +38,7 @@ class Cocktail_Page : Fragment(R.layout.fragment_cocktail__page) {
 
         return view
     }
+
     private fun run(context : Context) {
         val url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic"
         val request = Request.Builder()
@@ -57,12 +63,13 @@ class Cocktail_Page : Fragment(R.layout.fragment_cocktail__page) {
                     val cocktail= CocktailObject()
                     cocktail.nom=objectDetailJSON.getString("strDrink")
                     cocktail.imageUrl=objectDetailJSON.getString("strDrinkThumb")
+                    cocktail.id=objectDetailJSON.getString("idDrink")
                     detailsArrayList.add(cocktail)
                 }
 
                 //on update l'UI
-                    val objectAdapter =
-                        CocktailAdpater( context,detailsArrayList)
+                val objectAdapter =
+                    CocktailAdpater( context,detailsArrayList)
                 activity?.runOnUiThread {
                     detailsListView.adapter = objectAdapter
                 }

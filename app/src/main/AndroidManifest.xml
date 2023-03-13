@@ -40,6 +40,12 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".CocktailDetails_Page"
+            android:exported="true">
+        </activity>
+
+
 
         <service android:name="Map_Page"
             android:foregroundServiceType="location"/>
