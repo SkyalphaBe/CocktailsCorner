@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="match_parent">
+        
+        <ImageView
+            android:id="@+id/app_logo"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/png_clipart_computer_icons_chromatography_50x50_chromatogram_miscellaneous_text">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/titleNotification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="After Hours Reminder ! "
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_toEndOf="@id/app_logo"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/messageNotification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't forget to drink water"
+            android:textStyle="italic"
+            android:textSize="15sp"
+            android:layout_below="@id/titleNotification"
+            android:layout_toRightOf="@id/app_logo"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp">
+        </TextView>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -16,7 +16,6 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.graux.cocktailscornerproject.databinding.ActivityMainBinding
 
