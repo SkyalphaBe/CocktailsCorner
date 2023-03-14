@@ -5,14 +5,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Setting_Page"
-    android:background="#FBFCFD">
+    style="@style/Theme.AppBackground">
 
     <TextView
         android:id="@+id/settingText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/settings"
-        android:textColor="#FFFFFF"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.047"
         android:background="@drawable/title_style"
+        android:textAppearance="@style/Theme.TextViewTitle"
         android:padding="10dp"/>
 
     <androidx.cardview.widget.CardView
@@ -32,7 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/settingText"
         android:layout_marginBottom="50dp"
-        android:background="@drawable/bottom_nav_backgound"
         android:padding="10dp"
         app:cardCornerRadius="10dp">
         <LinearLayout
@@ -51,14 +50,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="30sp"
-                    android:textColor="@color/black"
+                    android:textAppearance="@style/Theme.TextViewSubTitle"
                     android:text="@string/color_settings">
                 </TextView>
                 <Switch
-                    android:id="@+id/switch2"
+                    android:id="@+id/colorbindSwitch"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:textColor="#8D8D92"
+                    android:textColor="@color/Grey"
                     android:text="@string/colorblind_mode"
                     android:textSize="20sp"
                     android:layout_marginBottom="25dp"
@@ -66,10 +65,10 @@
                     tools:ignore="UseSwitchCompatOrMaterialXml">
                 </Switch>
                 <Switch
-                    android:id="@+id/switch3"
+                    android:id="@+id/darkModeSwitch"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:textColor="#8D8D92"
+                    android:textColor="@color/Grey"
                     android:text="@string/light_mode"
                     android:textSize="20sp"
                     tools:ignore="UseSwitchCompatOrMaterialXml">
@@ -84,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="30sp"
-                    android:textColor="@color/black"
+                    android:textAppearance="@style/Theme.TextViewSubTitle"
                     android:text="@string/other_settings">
                 </TextView>
                 <Switch
@@ -93,7 +92,7 @@
                     android:layout_height="0dp"
                     android:text="@string/enabled_notification"
                     android:textSize="20sp"
-                    android:textColor="#8D8D92"
+                    android:textColor="@color/Grey"
                     android:layout_marginBottom="25dp"
                     android:layout_marginTop="25dp"
                     tools:ignore="UseSwitchCompatOrMaterialXml">
@@ -102,7 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:textSize="20sp"
-                    android:textColor="#8D8D92"
+                    android:textAppearance="@style/Theme.TextViewContent"
                     android:text="@string/about_the_application"
                     android:layout_marginBottom="30dp">
                 </TextView>
