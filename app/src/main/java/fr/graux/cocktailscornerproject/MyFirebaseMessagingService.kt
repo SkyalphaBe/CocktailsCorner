@@ -12,7 +12,6 @@ import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.google.firebase.messaging.ktx.remoteMessage
 
 const val channelId = "notificationChannel"
 const val channelName = "fr.graux.cocktailscornerproject"
@@ -44,7 +43,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val intent = Intent(this,MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
-        val pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT)
+        val pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_IMMUTABLE)
 
         var builder :NotificationCompat.Builder = NotificationCompat.Builder(applicationContext,channelId)
             .setSmallIcon(R.drawable.png_clipart_computer_icons_chromatography_50x50_chromatogram_miscellaneous_text)
