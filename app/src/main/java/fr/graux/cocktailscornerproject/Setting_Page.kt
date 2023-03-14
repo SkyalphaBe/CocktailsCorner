@@ -6,18 +6,25 @@ import android.app.UiModeManager
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Switch
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_setting__page.*
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class Setting_Page : Fragment(R.layout.fragment_setting__page) {
+
+    private lateinit var settingText:TextView
+    private lateinit var darkModeSwitch:Switch
 
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        darkModeSwitch = view.findViewById(R.id.darkModeSwitch)
+        settingText = view.findViewById(R.id.settingText)
 
         checkUITheme()
 
