@@ -87,7 +87,7 @@
                     android:text="@string/other_settings">
                 </TextView>
                 <Switch
-                    android:id="@+id/switch1"
+                    android:id="@+id/switchNotification"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:text="@string/enabled_notification"
