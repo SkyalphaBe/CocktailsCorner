@@ -1,12 +1,16 @@
 package fr.graux.cocktailscornerproject
 
 
+import android.app.UiModeManager
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import okhttp3.*
 import org.json.JSONArray
@@ -30,6 +34,28 @@ class Cocktail_Page : Fragment(R.layout.fragment_cocktail__page) {
         detailsListView = view.findViewById(R.id.listCocktail)
 
         run(view.context)
+
+        val title = view?.findViewById<TextView>(R.id.titleHome)
+
+        val uiModeManager: UiModeManager = requireContext().getSystemService(Context.UI_MODE_SERVICE)
+                as UiModeManager
+        val mode:Int = uiModeManager.nightMode
+        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
+            if (title != null) {
+                title.background = ContextCompat.getDrawable(requireContext(),R.color.purple_500)
+            }
+        }
+        else if(mode == UiModeManager.MODE_NIGHT_YES&& AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_UNSPECIFIED){
+            if (title != null) {
+                title.background = ContextCompat.getDrawable(requireContext(),R.color.purple_500)
+            }
+        }
+        else{
+            if (title != null) {
+                title.background=ContextCompat.getDrawable(requireContext(),R.color.blue)
+            }
+        }
+
 
         return view
     }

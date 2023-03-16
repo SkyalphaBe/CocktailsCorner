@@ -25,7 +25,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="350dp"
-        android:layout_height="525dp"
+        android:layout_height="450dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:orientation="vertical"
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="30dp">
@@ -54,23 +54,13 @@
                     android:text="@string/color_settings">
                 </TextView>
                 <Switch
-                    android:id="@+id/colorbindSwitch"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:textColor="@color/Grey"
-                    android:text="@string/colorblind_mode"
-                    android:textSize="20sp"
-                    android:layout_marginBottom="25dp"
-                    android:layout_marginTop="25dp"
-                    tools:ignore="UseSwitchCompatOrMaterialXml">
-                </Switch>
-                <Switch
                     android:id="@+id/darkModeSwitch"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:textColor="@color/Grey"
                     android:text="@string/light_mode"
                     android:textSize="20sp"
+                    android:layout_weight="1"
                     tools:ignore="UseSwitchCompatOrMaterialXml">
                 </Switch>
             </LinearLayout>
