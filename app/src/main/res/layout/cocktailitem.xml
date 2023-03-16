@@ -5,32 +5,34 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="462dp"
-        android:layout_height="198dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="414dp"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.041"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="35dp"
             android:innerRadius="0dp"
             android:shape="ring"
             android:thicknessRatio="1.9"
-            app:cardCornerRadius="40dp">
+            app:cardCornerRadius="40dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/cocktailImage"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@string/une_image_de_cocktail"
@@ -39,13 +41,15 @@
 
         <TextView
             android:id="@+id/cocktailNom"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="60dp"
+            android:layout_width="223dp"
+            android:layout_height="31dp"
             android:text="@string/nomcocktail"
-            android:textSize="24sp" />
+            android:textSize="20sp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
