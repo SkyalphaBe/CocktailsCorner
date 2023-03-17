@@ -5,10 +5,12 @@ package fr.graux.cocktailscornerproject
     lateinit var nom : String
     lateinit var imageUrl : String
     lateinit var ingredients : String
+    lateinit var id  : String
 
-    constructor(nom: String, imageUrl: String, ingredients : String) {
+    constructor(id : String, nom: String, imageUrl: String, ingredients : String) {
         this.nom = nom
         this.imageUrl = imageUrl
+        this.id= id
         this.ingredients = ingredients
     }
 
