@@ -20,11 +20,18 @@ import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
+import java.util.StringTokenizer
 
 class Map_Page : Fragment(),
     OnMapReadyCallback,
@@ -35,6 +42,8 @@ class Map_Page : Fragment(),
     private var locationPermissionGranted:Boolean = false
     private val client = OkHttpClient()
     val barList:ArrayList<Bar> = ArrayList()
+    val favoriteBarList: ArrayList<Bar> = ArrayList()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -122,7 +131,7 @@ class Map_Page : Fragment(),
     }
 
     private fun run(latitude:Double, longitude:Double) {
-        val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$latitude,$longitude&radius=1000&type=bar&key=${BuildConfig.MAPS_API_KEY}"
+        val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$latitude,$longitude&radius=3000&type=bar&key=${BuildConfig.MAPS_API_KEY}"
         val request = Request.Builder()
             .url(url)
             .build()
@@ -155,25 +164,18 @@ class Map_Page : Fragment(),
                     barList.add(bar)
                 }
                 activity?.runOnUiThread{
+                    loadData()
                     for(bar:Bar in barList)
                         makeMarker(bar)
                     mMap.setOnInfoWindowClickListener { marker->
-                        AlertDialog.Builder(requireContext())
-                            .setTitle("favoris")
-                            .setMessage("Voulez-vous mettre ce bar en favoris ?")
-                            .setPositiveButton("Oui",DialogInterface.OnClickListener{
-                                    _, _ ->
-                                    for(bar:Bar in barList) {
-                                        if (marker.position == LatLng(bar.lat, bar.lng)) {
-                                            bar.favorite = true
-                                        }
-                                    }
-                                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.icone__toile))
-                                })
-                            .setNegativeButton("Non",DialogInterface.OnClickListener{
-                                _, _ ->
-                            })
-                            .show()
+                        for(bar:Bar in barList) {
+                            if (marker.position == LatLng(bar.lat, bar.lng)) {
+                                if(favoriteBarList.contains(bar))
+                                    removeFavorite(marker,bar)
+                                else
+                                    addFavorite(marker, bar)
+                            }
+                        }
                     }
                 }
             }
@@ -181,21 +183,91 @@ class Map_Page : Fragment(),
 
     }
 
+    fun addFavorite(marker:Marker,bar: Bar){
+        AlertDialog.Builder(requireContext())
+            .setTitle("Add favorite")
+            .setMessage("Do you want to add this bar to your favorite ?")
+            .setPositiveButton("Yes",DialogInterface.OnClickListener{
+                    _, _ ->
+                    favoriteBarList.add(bar)
+                    saveData(favoriteBarList)
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.icone__toile))
+            })
+            .setNegativeButton("No",DialogInterface.OnClickListener{
+                    _, _ ->
+            })
+            .show()
+    }
+
+    private fun removeFavorite(marker:Marker,bar: Bar){
+        AlertDialog.Builder(requireContext())
+            .setTitle("Remove favorite")
+            .setMessage("Do you want to remove this bar from your favorites ?")
+            .setPositiveButton("Yes",DialogInterface.OnClickListener{
+                    _, _ ->
+                        favoriteBarList.remove(bar)
+                        saveData(favoriteBarList)
+                        marker.setIcon(null)
+            })
+            .setNegativeButton("No",DialogInterface.OnClickListener{
+                    _, _ ->
+            })
+            .show()
+    }
+
     private fun makeMarker(bar:Bar){
-        if(bar.favorite)
-            mMap.addMarker(MarkerOptions()
-                .title(bar.name)
-                .position(LatLng(bar.lat,bar.lng))
-                .draggable(false)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icone__toile))
+        if(favoriteBarList.contains(bar)) {
+            mMap.addMarker(
+                MarkerOptions()
+                    .title(bar.name)
+                    .position(LatLng(bar.lat, bar.lng))
+                    .draggable(false)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icone__toile))
             )
+        }
         else
             mMap.addMarker(MarkerOptions()
                 .title(bar.name)
                 .position(LatLng(bar.lat,bar.lng))
                 .draggable(false)
             )
+    }
 
+    private fun saveData(listBar: ArrayList<Bar>) {
+        try {
+            val file: FileOutputStream = requireContext().openFileOutput("FavoriteBar.txt", Context.MODE_PRIVATE)
+            val outputStreamWriter = OutputStreamWriter(file)
+            for (bar:Bar in listBar) {
+                outputStreamWriter.write(bar.toString())
+            }
+            outputStreamWriter.flush()
+            outputStreamWriter.close()
+        } catch (e: IOException) {
+            Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun loadData(){
+        favoriteBarList.clear()
+        val file: File = requireContext().getFileStreamPath("FavoriteBar.txt")
+        var lineFromFile :String?
+        if (file.exists()){
+            try{
+                val reader = BufferedReader(InputStreamReader(requireContext().openFileInput("FavoriteBar.txt")))
+                lineFromFile=reader.readLine()
+                while (lineFromFile != null){
+                    val tokenizer = StringTokenizer(lineFromFile,",")
+                    val bar = Bar(tokenizer.nextToken().toDouble() ,
+                        tokenizer.nextToken().toDouble(),
+                        tokenizer.nextToken())
+                    favoriteBarList.add(bar)
+                    lineFromFile = reader.readLine()
+                }
+                reader.close()
+            }catch(e:IOException){
+                Toast.makeText(requireContext(),e.message,Toast.LENGTH_LONG).show()
+            }
+        }
     }
 }
 
