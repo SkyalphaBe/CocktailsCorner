@@ -3,23 +3,32 @@ package fr.graux.cocktailscornerproject
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.UiModeManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.Switch
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import fr.graux.cocktailscornerproject.databinding.ActivityMainBinding
 import kotlin.math.log
+import com.google.android.material.switchmaterial.SwitchMaterial
+import java.io.File
+import java.io.IOException
 
 class Setting_Page : Fragment(R.layout.fragment_setting__page) {
 
@@ -27,6 +36,7 @@ class Setting_Page : Fragment(R.layout.fragment_setting__page) {
     private lateinit var darkModeSwitch:Switch
     private lateinit var notifSwitch:Switch
     private lateinit var binding: ActivityMainBinding
+    private lateinit var deleteDataBtn:Button
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @SuppressLint("ResourceType")
@@ -62,6 +72,7 @@ class Setting_Page : Fragment(R.layout.fragment_setting__page) {
 
             }
         }
+        deleteDataBtn = view.findViewById(R.id.deleteData)
 
         checkUITheme()
 
@@ -90,6 +101,30 @@ class Setting_Page : Fragment(R.layout.fragment_setting__page) {
                     .getColorStateList(requireContext(),R.drawable.color_item_nav)
                 settingText.background=ContextCompat.getDrawable(requireContext(),R.color.blue)
             }
+        }
+
+        deleteDataBtn.setOnClickListener{_->
+            AlertDialog.Builder(requireContext())
+                .setTitle("Delete")
+                .setMessage("Are you sure you want to delete your favorites bars ?")
+                .setPositiveButton("Yes", DialogInterface.OnClickListener{
+                        _, _ ->
+                    val file: File = requireContext().getFileStreamPath("FavoriteBar.txt")
+                    if(file.exists()){
+                        try{
+                            file.delete()
+                            Toast.makeText(requireContext(),"Favorites are deleted",Toast.LENGTH_LONG)
+                                .show()
+                        }catch(e:IOException){
+                            Toast.makeText(requireContext(),e.message,Toast.LENGTH_LONG)
+                                .show()
+                        }
+                    }
+                })
+                .setNegativeButton("No", DialogInterface.OnClickListener{
+                        _, _ ->
+                })
+                .show()
         }
     }
 
