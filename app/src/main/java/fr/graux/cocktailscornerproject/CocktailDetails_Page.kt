@@ -93,7 +93,7 @@ class CocktailDetails_Page : AppCompatActivity() {
 
                     //on voit si un nom alternatif existe si oui on le rajoute au titre sinon on met juste le nom
                     if(objectDetailJSON.getString("strDrinkAlternate") != "null"){
-                        titre.text = objectDetailJSON.getString("strDrink") + " ou " + objectDetailJSON.getString("strDrinkAlternate")
+                        titre.text = objectDetailJSON.getString("strDrink") + " or " + objectDetailJSON.getString("strDrinkAlternate")
                     }else{
                         titre.text = objectDetailJSON.getString("strDrink")
                     }
@@ -104,13 +104,15 @@ class CocktailDetails_Page : AppCompatActivity() {
                     }else{
                         alcoolique.append( "no")
                     }
-
+                    categories.append(" ")
                     categories.append(objectDetailJSON.getString("strCategory"))
 
 
                     if (objectDetailJSON.getString("strInstructionsFR") != "null") {
+                        instructions.append(" ")
                         instructions.append(objectDetailJSON.getString("strInstructionsFR"))
                     } else {
+                        instructions.append(" ")
                         instructions.append(objectDetailJSON.getString("strInstructions"))
                     }
                     for (i in 1..15) {

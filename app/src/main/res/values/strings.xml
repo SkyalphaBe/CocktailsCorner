@@ -13,9 +13,10 @@
     <string name="nomcocktail">NomCocktail</string>
     <string name="une_image_de_cocktail">une image de cocktail</string>
     <string name="cocktails_corner">Cocktails Corner</string>
-    <string name="instructions_de_pr_paration">Instructions de préparation :</string>
-    <string name="contient_de_l_alcool">Contient de l\'alcool :</string>
-    <string name="categories">Categories :</string>
-    <string name="type_de_verre">Type de verre :</string>
-    <string name="retour">retour</string>
+    <string name="instructions_de_pr_paration">Instructions : </string>
+    <string name="contient_de_l_alcool">Contains alcohol :</string>
+    <string name="categories">Categories : </string>
+    <string name="type_de_verre">Type of glass : </string>
+    <string name="retour">Back</string>
+    <string name="ingredient">Ingredient :</string>
 </resources>

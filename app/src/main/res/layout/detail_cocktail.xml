@@ -19,7 +19,11 @@
             android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:text="@string/retour"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_back"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/white">
         </Button>
 
         <androidx.cardview.widget.CardView
@@ -53,6 +57,11 @@
                 android:layout_marginBottom="20dp"
                 android:fontFamily="sans-serif"
                 android:textAlignment="center"
+                android:background="@drawable/btn_back"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -99,7 +108,7 @@
                 android:textSize="20sp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="Ingredient : ">
+                android:text="@string/ingredient">
             </TextView>
 
             <ListView
