@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -14,10 +15,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:text="@string/retour"
+            android:layout_height="wrap_content">
+        </Button>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardDetailCocktail"
-            android:layout_width="200dp"
-            android:layout_height="400dp"
+            android:layout_width="150dp"
+            android:layout_height="350dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
@@ -27,9 +35,8 @@
 
             <ImageView
                 android:id="@+id/detailCocktailImage"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_weight="1"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 tools:srcCompat="@tools:sample/avatars" />
         </androidx.cardview.widget.CardView>
 
@@ -54,32 +61,52 @@
                 android:id="@+id/detailCocktailCat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Categories : \n" />
+                android:text="@string/categories"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/detailCocktailAlcoolique"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Contient de l'alcool : \n" />
+                android:textSize="20sp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/contient_de_l_alcool" />
 
             <TextView
                 android:id="@+id/detailCocktailInstuction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Instructions de préparation : \n" />
+                android:textSize="20sp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/instructions_de_pr_paration" />
 
             <TextView
                 android:id="@+id/detailCocktailVerre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Type de verre : \n" />
+                android:textSize="20sp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/type_de_verre" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Ingredient : ">
+            </TextView>
 
             <ListView
                 android:id="@+id/detailCocktailList"
                 android:layout_width="match_parent"
-                android:layout_height="304dp" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

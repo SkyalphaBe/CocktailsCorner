@@ -2,6 +2,7 @@ package fr.graux.cocktailscornerproject
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.squareup.picasso.Picasso
 import fr.graux.cocktailscornerproject.databinding.DetailCocktailBinding
 import okhttp3.*
@@ -39,6 +41,10 @@ class CocktailDetails_Page : AppCompatActivity() {
 
         setContentView(view)
 
+        binding.btnBack.setOnClickListener {
+            val intent = Intent(view.context, Cocktail_Page::class.java)
+            ContextCompat.startActivity(view.context, intent, null)
+        }
 
     }
 
@@ -94,9 +100,9 @@ class CocktailDetails_Page : AppCompatActivity() {
 
                     //on regarde si la boisson est alcoolisée
                     if(objectDetailJSON.getString("strAlcoholic")=="Alcoholic"){
-                        alcoolique.append("oui")
+                        alcoolique.append(" yes")
                     }else{
-                        alcoolique.append("non")
+                        alcoolique.append( "no")
                     }
 
                     categories.append(objectDetailJSON.getString("strCategory"))
