@@ -2,10 +2,12 @@ package fr.graux.cocktailscornerproject
 
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.UiModeManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -21,6 +23,13 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if(CheckNetwork.isInternetAvailable(this)) {
+            Toast.makeText(this,"Internet OK",Toast.LENGTH_LONG).show()
+        }
+        else {
+            Toast.makeText(this,"No Internet Connection",1000).show();
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
