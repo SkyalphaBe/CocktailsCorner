@@ -62,8 +62,6 @@ class Setting_Page : Fragment(R.layout.fragment_setting__page) {
                     requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS),
                         0)
                 }
-            } else {
-
             }
         }
         deleteDataBtn = view.findViewById(R.id.deleteData)
@@ -133,7 +131,15 @@ class Setting_Page : Fragment(R.layout.fragment_setting__page) {
         val uiModeManager:UiModeManager = requireContext().getSystemService(Context.UI_MODE_SERVICE)
                 as UiModeManager
         val mode:Int = uiModeManager.nightMode
-        if(mode == UiModeManager.MODE_NIGHT_YES){
+        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_NO) {
+            darkModeSwitch.isChecked = false
+            settingText.background=ContextCompat.getDrawable(requireContext(),R.color.blue)
+        }
+        else if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
+            darkModeSwitch.isChecked = true
+            settingText.background=ContextCompat.getDrawable(requireContext(),R.color.purple_500)
+        }
+        else if(mode == UiModeManager.MODE_NIGHT_YES){
             darkModeSwitch.isChecked=true
             settingText.background=ContextCompat.getDrawable(requireContext(),R.color.purple_500)
         }

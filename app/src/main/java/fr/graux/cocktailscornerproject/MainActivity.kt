@@ -7,7 +7,9 @@ import android.app.UiModeManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Switch
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -29,10 +31,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        if(CheckNetwork.isInternetAvailable(this)) {
-            Toast.makeText(this,"Internet OK",Toast.LENGTH_LONG).show()
-        }
-        else {
+        if(!CheckNetwork.isInternetAvailable(this)) {
             AlertDialog.Builder(this)
                 .setTitle("No internet...")
                 .setMessage("CocktailsCorner require internet Connexion to run correctly please try to connect your devise to internet")
@@ -51,13 +50,29 @@ class MainActivity : AppCompatActivity() {
             .getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
         val mode:Int = uiModeManager.nightMode
 
-        if(mode == UiModeManager.MODE_NIGHT_YES){
+        if(AppCompatDelegate.getDefaultNightMode()== AppCompatDelegate.MODE_NIGHT_YES){
             binding.bottomNavigationView.background=ContextCompat
                 .getDrawable(this,R.drawable.bottom_nav_backgound_dark)
             binding.bottomNavigationView.itemTextColor=ContextCompat
                 .getColorStateList(this,R.drawable.color_item_nav_dark)
             binding.bottomNavigationView.itemIconTintList=ContextCompat
                 .getColorStateList(this,R.drawable.color_item_nav_dark)
+        }
+        else if(mode == UiModeManager.MODE_NIGHT_YES&& AppCompatDelegate.getDefaultNightMode()== AppCompatDelegate.MODE_NIGHT_UNSPECIFIED){
+            binding.bottomNavigationView.background=ContextCompat
+                .getDrawable(this,R.drawable.bottom_nav_backgound_dark)
+            binding.bottomNavigationView.itemTextColor=ContextCompat
+                .getColorStateList(this,R.drawable.color_item_nav_dark)
+            binding.bottomNavigationView.itemIconTintList=ContextCompat
+                .getColorStateList(this,R.drawable.color_item_nav_dark)
+        }
+        else{
+            binding.bottomNavigationView.background=ContextCompat
+                .getDrawable(this,R.drawable.bottom_nav_backgound)
+            binding.bottomNavigationView.itemTextColor=ContextCompat
+                .getColorStateList(this,R.drawable.color_item_nav)
+            binding.bottomNavigationView.itemIconTintList=ContextCompat
+                .getColorStateList(this,R.drawable.color_item_nav)
         }
     }
 }

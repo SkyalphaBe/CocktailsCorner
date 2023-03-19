@@ -1,6 +1,7 @@
 package fr.graux.cocktailscornerproject
 
 import android.annotation.SuppressLint
+import android.app.UiModeManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import com.squareup.picasso.Picasso
 import fr.graux.cocktailscornerproject.databinding.DetailCocktailBinding
@@ -35,15 +37,32 @@ class CocktailDetails_Page : AppCompatActivity() {
 
         val extras = intent.extras
         val id: String? = extras?.getString("id")
+        val btnBack = binding.btnBack
+        val nomCocktailView = binding.detailCocktailNom
 
+        val uiModeManager: UiModeManager = applicationContext
+            .getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
+        val mode:Int = uiModeManager.nightMode
+        if(AppCompatDelegate.getDefaultNightMode()== AppCompatDelegate.MODE_NIGHT_YES){
+            btnBack.background=ContextCompat.getDrawable(this,R.drawable.btn_back_dark)
+            nomCocktailView.background=ContextCompat.getDrawable(this,R.drawable.btn_back_dark)
+        }
+        else if(mode==UiModeManager.MODE_NIGHT_YES
+            && AppCompatDelegate.getDefaultNightMode()== AppCompatDelegate.MODE_NIGHT_UNSPECIFIED){
+            btnBack.background=ContextCompat.getDrawable(this,R.drawable.btn_back_dark)
+            nomCocktailView.background=ContextCompat.getDrawable(this,R.drawable.btn_back_dark)
+        }
+        else{
+            btnBack.background=ContextCompat.getDrawable(this,R.drawable.btn_back)
+            nomCocktailView.background=ContextCompat.getDrawable(this,R.drawable.btn_back)
+        }
 
         run(view.context, id)
 
         setContentView(view)
 
-        binding.btnBack.setOnClickListener {
-            val intent = Intent(view.context, MainActivity::class.java)
-            ContextCompat.startActivity(view.context, intent, null)
+        btnBack.setOnClickListener {
+            finish()
         }
 
     }

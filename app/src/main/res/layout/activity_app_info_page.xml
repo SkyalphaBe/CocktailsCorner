@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/about_the_app"
-            android:textColor="@color/blue"
+            android:textAppearance="@style/Theme.SecondaryTextViewTitle"
             android:textStyle="bold"
             android:textSize="35sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -68,7 +68,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/blue"
+                    android:textAppearance="@style/Theme.SecondaryTextViewContent"
                     android:layout_marginEnd="5dp"
                     android:textSize="25sp"
                     android:text="@string/version">
@@ -90,7 +90,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/blue"
+                    android:textAppearance="@style/Theme.SecondaryTextViewContent"
                     android:textSize="25sp"
                     android:layout_marginEnd="5dp"
                     android:text="@string/creator">
@@ -113,7 +113,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/blue"
+                    android:textAppearance="@style/Theme.SecondaryTextViewContent"
                     android:layout_marginEnd="5dp"
                     android:textSize="25sp"
                     android:text="@string/copyright">
@@ -135,7 +135,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/blue"
+                    android:textAppearance="@style/Theme.SecondaryTextViewContent"
                     android:textSize="25sp"
                     android:layout_marginEnd="5dp"
                     android:text="@string/release_date">
@@ -157,7 +157,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/blue"
+                    android:textAppearance="@style/Theme.SecondaryTextViewContent"
                     android:textSize="25sp"
                     android:layout_marginEnd="5dp"
                     android:text="@string/credit">
@@ -179,7 +179,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/blue"
+                    android:textAppearance="@style/Theme.SecondaryTextViewContent"
                     android:textSize="25sp"
                     android:layout_marginEnd="5dp"
                     android:text="@string/features">
@@ -201,7 +201,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/blue"
+                    android:textAppearance="@style/Theme.SecondaryTextViewContent"
                     android:textSize="25sp"
                     android:layout_marginEnd="5dp"
                     android:text="@string/description">
