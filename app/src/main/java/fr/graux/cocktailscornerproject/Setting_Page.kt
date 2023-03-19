@@ -6,10 +6,9 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.UiModeManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -25,12 +24,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.io.File
 import java.io.IOException
 
+
 class Setting_Page : Fragment(R.layout.fragment_setting__page) {
 
     private lateinit var settingText:TextView
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var darkModeSwitch:Switch
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var notifSwitch:Switch
     private lateinit var deleteDataBtn:Button
+    private val PREFSFILENAME = "com.app.app.prefs"
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @SuppressLint("ResourceType")
@@ -105,24 +108,29 @@ class Setting_Page : Fragment(R.layout.fragment_setting__page) {
         deleteDataBtn.setOnClickListener{_->
             AlertDialog.Builder(requireContext())
                 .setTitle("Delete")
-                .setMessage("Are you sure you want to delete your favorites bars ?")
-                .setPositiveButton("Yes", DialogInterface.OnClickListener{
-                        _, _ ->
+                .setMessage("Are you sure you want to delete your favorites bars and cocktails?")
+                .setPositiveButton("Yes") { _, _ ->
                     val file: File = requireContext().getFileStreamPath("FavoriteBar.txt")
-                    if(file.exists()){
-                        try{
+                    if (file.exists()) {
+                        try {
                             file.delete()
-                            Toast.makeText(requireContext(),"Favorites are deleted",Toast.LENGTH_LONG)
+                            Toast.makeText(
+                                requireContext(),
+                                "Favorites are deleted",
+                                Toast.LENGTH_LONG
+                            )
                                 .show()
-                        }catch(e:IOException){
-                            Toast.makeText(requireContext(),e.message,Toast.LENGTH_LONG)
+                        } catch (e: IOException) {
+                            Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG)
                                 .show()
                         }
                     }
-                })
-                .setNegativeButton("No", DialogInterface.OnClickListener{
-                        _, _ ->
-                })
+                    val sharedPreferences = requireContext().getSharedPreferences(PREFSFILENAME, 0)
+                    val editor = sharedPreferences.edit()
+                    editor.remove("cocktailList").apply()
+                }
+                .setNegativeButton("No") { _, _ ->
+                }
                 .show()
         }
     }

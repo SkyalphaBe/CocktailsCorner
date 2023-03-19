@@ -11,11 +11,9 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import fr.graux.cocktailscornerproject.databinding.ActivityMainBinding
-import fr.graux.cocktailscornerproject.databinding.DetailCocktailBinding
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -24,8 +22,12 @@ import java.io.IOException
 class Cocktail_Page : Fragment(R.layout.fragment_cocktail__page){
 
 
+    //la listeview pour afficher les cocktail
     lateinit var detailsListView: ListView
+    //la lsite des cocktails
     var detailsArrayList:ArrayList<CocktailObject> = ArrayList()
+    //la liste des cocktails favoris
+    var favorisArrayList:ArrayList<String> = ArrayList()
     private val client = OkHttpClient()
 
     override fun onCreateView(
@@ -34,7 +36,7 @@ class Cocktail_Page : Fragment(R.layout.fragment_cocktail__page){
         savedInstanceState: Bundle?
 
     ): View? {
-
+        loadData()
         val view = inflater.inflate(R.layout.fragment_cocktail__page,container,false)
         detailsListView = view.findViewById(R.id.listCocktail)
 
@@ -90,12 +92,22 @@ class Cocktail_Page : Fragment(R.layout.fragment_cocktail__page){
                     cocktail.nom=objectDetailJSON.getString("strDrink")
                     cocktail.imageUrl=objectDetailJSON.getString("strDrinkThumb")
                     cocktail.id=objectDetailJSON.getString("idDrink")
+
+
+                    //on regarde si il est dans la liste des favoris
+                    for(y in 0 until favorisArrayList.size){
+                        if(favorisArrayList[y] == cocktail.id){
+                            cocktail.fav=true
+                        }
+                    }
+
+
                     detailsArrayList.add(cocktail)
                 }
 
                 //on update l'UI
                 val objectAdapter =
-                    CocktailAdpater( context,detailsArrayList)
+                    CocktailAdpater( context,detailsArrayList, favorisArrayList)
                 activity?.runOnUiThread {
                     detailsListView.adapter = objectAdapter
                 }
@@ -104,5 +116,40 @@ class Cocktail_Page : Fragment(R.layout.fragment_cocktail__page){
         })
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        saveData()
 
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        saveData()
+    }
+
+    private val PREFSFILENAME = "com.app.app.prefs"
+
+    private fun saveData() {
+        val sharedPreferences = requireContext().getSharedPreferences(PREFSFILENAME, 0)
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        val json = gson.toJson(favorisArrayList)
+        editor.putString("cocktailList", json)
+        editor.apply()
+    }
+
+    //fonction qui charge la liste de favoris
+    private fun loadData() {
+        val sharedPreferences = requireContext().getSharedPreferences(PREFSFILENAME, 0)
+        val gson = Gson()
+        val json = sharedPreferences.getString("cocktailList", "")
+        val type = object: TypeToken<MutableList<String>>() {}.type
+
+        if(json == null || json == "")
+            favorisArrayList = ArrayList()
+
+        else
+            favorisArrayList = gson.fromJson(json, type)
+    }
 }

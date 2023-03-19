@@ -1,18 +1,15 @@
 package fr.graux.cocktailscornerproject
 
- class CocktailObject{
+class CocktailObject() {
 
     lateinit var nom : String
     lateinit var imageUrl : String
     lateinit var ingredients : String
     lateinit var id  : String
+    var fav : Boolean = false
 
-    constructor(id : String, nom: String, imageUrl: String, ingredients : String) {
-        this.nom = nom
-        this.imageUrl = imageUrl
-        this.id= id
-        this.ingredients = ingredients
+
+    override fun toString(): String {
+        return "CocktailObject(nom='$nom', imageUrl='$imageUrl', ingredients='$ingredients', id='$id', fav=$fav)"
     }
-
-    constructor()
 }

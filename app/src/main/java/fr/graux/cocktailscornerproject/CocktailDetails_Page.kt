@@ -3,12 +3,10 @@ package fr.graux.cocktailscornerproject
 import android.annotation.SuppressLint
 import android.app.UiModeManager
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -23,8 +21,6 @@ import java.io.IOException
 
 class CocktailDetails_Page : AppCompatActivity() {
 
-    lateinit var detailsListView: ListView
-    var detailsArrayList: ArrayList<CocktailObject> = ArrayList()
     private val client = OkHttpClient()
 
     private lateinit var binding: DetailCocktailBinding
@@ -57,7 +53,7 @@ class CocktailDetails_Page : AppCompatActivity() {
             nomCocktailView.background=ContextCompat.getDrawable(this,R.drawable.btn_back)
         }
 
-        run(view.context, id)
+        run(id)
 
         setContentView(view)
 
@@ -67,7 +63,7 @@ class CocktailDetails_Page : AppCompatActivity() {
 
     }
 
-    private fun run(context: Context, id: String?) {
+    private fun run( id: String?) {
 
         //on crée un url avec l'id de la boisson qui a été clicker
         val url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=$id"
@@ -89,7 +85,6 @@ class CocktailDetails_Page : AppCompatActivity() {
                 val contactJSON = JSONObject(reponseString)
                 //on crée le tableau JSON
                 val infoJSONArray: JSONArray = contactJSON.getJSONArray("drinks")
-                val size: Int = infoJSONArray.length()
 
 
 
@@ -105,10 +100,13 @@ class CocktailDetails_Page : AppCompatActivity() {
                 val alcoolique = findViewById<TextView>(R.id.detailCocktailAlcoolique)
                 val instructions = findViewById<TextView>(R.id.detailCocktailInstuction)
                 val ingredients = findViewById<ListView>(R.id.detailCocktailList)
-
+                val verre =findViewById<TextView>(R.id.detailCocktailVerre)
                 //on update l'ui avec les données de l'API pour le cocktail selectionée
                 runOnUiThread {
 
+
+                    //on remplis le verre :
+                    verre.append(objectDetailJSON.getString("strGlass"))
 
                     //on voit si un nom alternatif existe si oui on le rajoute au titre sinon on met juste le nom
                     if(objectDetailJSON.getString("strDrinkAlternate") != "null"){
@@ -170,10 +168,10 @@ class CocktailDetails_Page : AppCompatActivity() {
 
                     //fonction qui permet de load l'image à partir d'un lien
                     val uiHandler = Handler(Looper.getMainLooper())
-                    uiHandler.post(Runnable {
+                    uiHandler.post {
                         Picasso.get().load(objectDetailJSON.getString("strDrinkThumb"))
                             .into(imageView)
-                    })
+                    }
 
                 }
             }
