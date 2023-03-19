@@ -2,7 +2,7 @@ package fr.graux.cocktailscornerproject
 
 
 import android.annotation.SuppressLint
-import android.app.Activity
+import android.app.AlertDialog
 import android.app.UiModeManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import fr.graux.cocktailscornerproject.databinding.ActivityMainBinding
 
 
@@ -24,16 +25,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
         if(CheckNetwork.isInternetAvailable(this)) {
             Toast.makeText(this,"Internet OK",Toast.LENGTH_LONG).show()
         }
         else {
-            Toast.makeText(this,"No Internet Connection",1000).show();
+            AlertDialog.Builder(this)
+                .setTitle("No internet...")
+                .setMessage("CocktailsCorner require internet Connexion to run correctly please try to connect your devise to internet")
+                .setPositiveButton("Confirm"){_,_->
+                    finish()
+                }
+                .show()
         }
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
 
         val bottomNavView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val navController = findNavController(R.id.fragment)
