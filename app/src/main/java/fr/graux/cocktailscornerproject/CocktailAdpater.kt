@@ -69,6 +69,7 @@ class CocktailAdpater(context: Context, arrayListDetails:ArrayList<CocktailObjec
         }
 
         //on remplit tous les champs
+        listRowHolder.cocktailFav.visibility = View.INVISIBLE
         listRowHolder.cocktailNom.text = arrayListDetails[position].nom
         Picasso.get().load(arrayListDetails[position].imageUrl).into(listRowHolder.cocktailImage)
         listRowHolder.cocktailId.text = arrayListDetails[position].id

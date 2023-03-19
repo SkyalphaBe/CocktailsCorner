@@ -4,6 +4,7 @@ package fr.graux.cocktailscornerproject
 import android.app.UiModeManager
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,8 @@ class Cocktail_Page : Fragment(R.layout.fragment_cocktail__page){
 
     ): View? {
         loadData()
+
+
         val view = inflater.inflate(R.layout.fragment_cocktail__page,container,false)
         detailsListView = view.findViewById(R.id.listCocktail)
 
@@ -97,12 +100,18 @@ class Cocktail_Page : Fragment(R.layout.fragment_cocktail__page){
                     //on regarde si il est dans la liste des favoris
                     for(y in 0 until favorisArrayList.size){
                         if(favorisArrayList[y] == cocktail.id){
+
                             cocktail.fav=true
                         }
                     }
 
+                    if( cocktail.fav){
+                        detailsArrayList.add(0,cocktail)
 
-                    detailsArrayList.add(cocktail)
+                    }else{
+                        detailsArrayList.add(cocktail)
+                    }
+
                 }
 
                 //on update l'UI
