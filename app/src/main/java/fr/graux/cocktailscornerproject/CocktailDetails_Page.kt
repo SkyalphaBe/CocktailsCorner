@@ -42,7 +42,7 @@ class CocktailDetails_Page : AppCompatActivity() {
         setContentView(view)
 
         binding.btnBack.setOnClickListener {
-            val intent = Intent(view.context, Cocktail_Page::class.java)
+            val intent = Intent(view.context, MainActivity::class.java)
             ContextCompat.startActivity(view.context, intent, null)
         }
 

@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -20,13 +21,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import fr.graux.cocktailscornerproject.databinding.ActivityMainBinding
-import kotlin.math.log
-import com.google.android.material.switchmaterial.SwitchMaterial
 import java.io.File
 import java.io.IOException
 
@@ -35,7 +30,6 @@ class Setting_Page : Fragment(R.layout.fragment_setting__page) {
     private lateinit var settingText:TextView
     private lateinit var darkModeSwitch:Switch
     private lateinit var notifSwitch:Switch
-    private lateinit var binding: ActivityMainBinding
     private lateinit var deleteDataBtn:Button
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -101,6 +95,13 @@ class Setting_Page : Fragment(R.layout.fragment_setting__page) {
                     .getColorStateList(requireContext(),R.drawable.color_item_nav)
                 settingText.background=ContextCompat.getDrawable(requireContext(),R.color.blue)
             }
+        }
+
+        val textAbout = view.findViewById<TextView>(R.id.aboutApp)
+
+        textAbout.setOnClickListener{
+            val intent = Intent(view.context, AppInfo_Page::class.java)
+            ContextCompat.startActivity(view.context,intent,null)
         }
 
         deleteDataBtn.setOnClickListener{_->

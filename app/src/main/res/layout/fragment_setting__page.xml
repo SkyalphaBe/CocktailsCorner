@@ -88,6 +88,7 @@
                     tools:ignore="UseSwitchCompatOrMaterialXml">
                 </Switch>
                 <TextView
+                    android:id="@+id/aboutApp"
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:textSize="20sp"
