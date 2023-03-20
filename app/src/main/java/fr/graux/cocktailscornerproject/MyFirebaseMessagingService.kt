@@ -1,7 +1,6 @@
 package fr.graux.cocktailscornerproject
 
 import android.annotation.SuppressLint
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -16,6 +15,7 @@ import com.google.firebase.messaging.RemoteMessage
 const val channelId = "notificationChannel"
 const val channelName = "fr.graux.cocktailscornerproject"
 
+@SuppressLint("MissingFirebaseInstanceTokenRefresh")
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -28,7 +28,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
-    fun getRemoteView(title :String, message:String): RemoteViews {
+    private fun getRemoteView(title :String, message:String): RemoteViews {
         val remoteView = RemoteViews("fr.graux.cocktailscornerproject",R.layout.notification)
 
         remoteView.setTextViewText(R.id.titleNotification,title)
@@ -38,7 +38,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         return remoteView
     }
 
-    @SuppressLint("UnspecifiedImmutableFlag")
+    @SuppressLint("UnspecifiedImmutableFlag", "ObsoleteSdkInt")
     fun generateNotification(title : String, message : String){
         val intent = Intent(this,MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

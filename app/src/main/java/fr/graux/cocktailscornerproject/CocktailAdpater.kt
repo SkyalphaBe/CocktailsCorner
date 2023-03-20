@@ -52,7 +52,7 @@ class CocktailAdpater(context: Context, arrayListDetails:ArrayList<CocktailObjec
             view.setOnClickListener(object : DoubleClickListener() {
                 override fun onDoubleClick(v: View) {
                     val viewId : TextView =v.findViewById(R.id.cocktailId)
-                    val intent = Intent(view.context, CocktailDetails_Page::class.java)
+                    val intent = Intent(view.context, CocktailDetailsPage::class.java)
 
                     val id : String = viewId.text as String
                     intent.putExtra("id", id)

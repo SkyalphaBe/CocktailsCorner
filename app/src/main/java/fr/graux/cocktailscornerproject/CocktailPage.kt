@@ -4,7 +4,6 @@ package fr.graux.cocktailscornerproject
 import android.app.UiModeManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 
-class Cocktail_Page : Fragment(R.layout.fragment_cocktail__page){
+class CocktailPage : Fragment(R.layout.fragment_cocktail__page){
 
 
     //la listeview pour afficher les cocktail
@@ -137,10 +136,10 @@ class Cocktail_Page : Fragment(R.layout.fragment_cocktail__page){
         saveData()
     }
 
-    private val PREFSFILENAME = "com.app.app.prefs"
+    private val PREFS_FILE_NAME = "com.app.app.prefs"
 
     private fun saveData() {
-        val sharedPreferences = requireContext().getSharedPreferences(PREFSFILENAME, 0)
+        val sharedPreferences = requireContext().getSharedPreferences(PREFS_FILE_NAME, 0)
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(favorisArrayList)
@@ -150,15 +149,14 @@ class Cocktail_Page : Fragment(R.layout.fragment_cocktail__page){
 
     //fonction qui charge la liste de favoris
     private fun loadData() {
-        val sharedPreferences = requireContext().getSharedPreferences(PREFSFILENAME, 0)
+        val sharedPreferences = requireContext().getSharedPreferences(PREFS_FILE_NAME, 0)
         val gson = Gson()
         val json = sharedPreferences.getString("cocktailList", "")
         val type = object: TypeToken<MutableList<String>>() {}.type
 
-        if(json == null || json == "")
-            favorisArrayList = ArrayList()
-
+        favorisArrayList = if(json == null || json == "")
+            ArrayList()
         else
-            favorisArrayList = gson.fromJson(json, type)
+            gson.fromJson(json, type)
     }
 }

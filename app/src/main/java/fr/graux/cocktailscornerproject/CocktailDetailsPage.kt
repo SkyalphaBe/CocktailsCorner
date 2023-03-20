@@ -19,7 +19,7 @@ import org.json.JSONObject
 import java.io.IOException
 
 
-class CocktailDetails_Page : AppCompatActivity() {
+class CocktailDetailsPage : AppCompatActivity() {
 
     private val client = OkHttpClient()
 
@@ -152,7 +152,7 @@ class CocktailDetails_Page : AppCompatActivity() {
 
                     // on below line we are initializing adapter for our list view.
                     val adapter: ArrayAdapter<String?> = ArrayAdapter<String?>(
-                        this@CocktailDetails_Page,
+                        this@CocktailDetailsPage,
                         android.R.layout.simple_list_item_1,
                         listIng as List<String?>
                     )

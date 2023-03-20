@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.location.Criteria
 import android.location.Location
@@ -33,7 +32,7 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.util.StringTokenizer
 
-class Map_Page : Fragment(),
+class MapPage : Fragment(),
     OnMapReadyCallback,
     ActivityCompat.OnRequestPermissionsResultCallback{
 
@@ -121,7 +120,7 @@ class Map_Page : Fragment(),
     @SuppressLint("MissingPermission")
     private fun zoomToCurrentLocation(){
         val locationManager:LocationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val criteria:Criteria = Criteria()
+        val criteria = Criteria()
         val location:Location? = locationManager.getBestProvider(criteria,false)
             ?.let { locationManager.getLastKnownLocation(it) }
         if (location != null) {
@@ -151,7 +150,7 @@ class Map_Page : Fragment(),
 
                 for (i in 0 until size) {
                     val objectDetailJSON: JSONObject =infoJSONArray.getJSONObject(i)
-                    val bar:Bar = Bar()
+                    val bar = Bar()
                     bar.lat = objectDetailJSON
                         .getJSONObject("geometry")
                         .getJSONObject("location")
@@ -187,15 +186,15 @@ class Map_Page : Fragment(),
         AlertDialog.Builder(requireContext())
             .setTitle("Add favorite")
             .setMessage("Do you want to add this bar to your favorite ?")
-            .setPositiveButton("Yes",DialogInterface.OnClickListener{
+            .setPositiveButton("Yes"){
                     _, _ ->
                     favoriteBarList.add(bar)
                     saveData(favoriteBarList)
                     marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.icone__toile))
-            })
-            .setNegativeButton("No",DialogInterface.OnClickListener{
+            }
+            .setNegativeButton("No"){
                     _, _ ->
-            })
+            }
             .show()
     }
 
@@ -203,15 +202,15 @@ class Map_Page : Fragment(),
         AlertDialog.Builder(requireContext())
             .setTitle("Remove favorite")
             .setMessage("Do you want to remove this bar from your favorites ?")
-            .setPositiveButton("Yes",DialogInterface.OnClickListener{
+            .setPositiveButton("Yes"){
                     _, _ ->
                         favoriteBarList.remove(bar)
                         saveData(favoriteBarList)
                         marker.setIcon(null)
-            })
-            .setNegativeButton("No",DialogInterface.OnClickListener{
+            }
+            .setNegativeButton("No"){
                     _, _ ->
-            })
+            }
             .show()
     }
 
