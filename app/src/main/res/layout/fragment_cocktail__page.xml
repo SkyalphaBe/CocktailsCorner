@@ -26,14 +26,19 @@
 
     <ListView
         android:id="@+id/listCocktail"
+        style="@style/Widget.AppCompat.Light.ListView.DropDown"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
-        app:layout_constraintTop_toBottomOf="@id/titleHome"
+        android:cacheColorHint="#FFFFFF"
+        android:dividerHeight="0dp"
+        app:flow_horizontalGap="10dp"
+        app:flow_verticalGap="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleHome"
         app:layout_constraintVertical_bias="0.02" />
 </androidx.constraintlayout.widget.ConstraintLayout>
