@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/cocktail_Page"
+        android:enabled="true"
+        android:icon="@drawable/local_bar_fill0_wght400_grad0_opsz48"
+        android:title="@string/text_label_1"/>
+    <item
+        android:id="@+id/map_Page"
+        android:enabled="true"
+        android:icon="@drawable/map_fill0_wght400_grad0_opsz48"
+        android:title="@string/text_label_2"/>
+    <item
+        android:id="@+id/setting_Page"
+        android:enabled="true"
+        android:icon="@drawable/settings_fill0_wght400_grad0_opsz48"
+        android:title="@string/settings"/>
+</menu>
