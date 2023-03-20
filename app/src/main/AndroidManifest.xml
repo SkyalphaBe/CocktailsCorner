@@ -48,12 +48,12 @@
         </activity>
 
         <activity
-            android:name=".AppInfo_Page"
+            android:name=".AppInfoPage"
             android:exported="true"/>
         <receiver android:name=".ReminderBroadcast" />
 
         <service
-            android:name=".Map_Page"
+            android:name=".MapPage"
             android:foregroundServiceType="location" />
 
         <service

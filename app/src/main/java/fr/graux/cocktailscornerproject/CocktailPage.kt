@@ -4,7 +4,6 @@ package fr.graux.cocktailscornerproject
 import android.app.UiModeManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 
-class Cocktail_Page : Fragment(R.layout.fragment_cocktail__page){
+class CocktailPage : Fragment(R.layout.fragment_cocktail__page){
 
 
     //la listeview pour afficher les cocktail

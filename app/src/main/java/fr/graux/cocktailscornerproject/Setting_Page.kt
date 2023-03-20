@@ -101,7 +101,7 @@ class Setting_Page : Fragment(R.layout.fragment_setting__page) {
         val textAbout = view.findViewById<TextView>(R.id.aboutApp)
 
         textAbout.setOnClickListener{
-            val intent = Intent(view.context, AppInfo_Page::class.java)
+            val intent = Intent(view.context, AppInfoPage::class.java)
             ContextCompat.startActivity(view.context,intent,null)
         }
 
