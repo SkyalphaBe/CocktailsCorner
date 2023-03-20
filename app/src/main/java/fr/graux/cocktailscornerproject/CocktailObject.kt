@@ -4,7 +4,7 @@ class CocktailObject {
 
     lateinit var nom : String
     lateinit var imageUrl : String
-    lateinit var ingredients : String
+    private lateinit var ingredients : String
     lateinit var id  : String
     var fav : Boolean = false
 

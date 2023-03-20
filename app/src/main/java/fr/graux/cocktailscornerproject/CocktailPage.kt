@@ -136,10 +136,10 @@ class CocktailPage : Fragment(R.layout.fragment_cocktail__page){
         saveData()
     }
 
-    private val PREFSFILENAME = "com.app.app.prefs"
+    private val PREFS_FILE_NAME = "com.app.app.prefs"
 
     private fun saveData() {
-        val sharedPreferences = requireContext().getSharedPreferences(PREFSFILENAME, 0)
+        val sharedPreferences = requireContext().getSharedPreferences(PREFS_FILE_NAME, 0)
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(favorisArrayList)
@@ -149,15 +149,14 @@ class CocktailPage : Fragment(R.layout.fragment_cocktail__page){
 
     //fonction qui charge la liste de favoris
     private fun loadData() {
-        val sharedPreferences = requireContext().getSharedPreferences(PREFSFILENAME, 0)
+        val sharedPreferences = requireContext().getSharedPreferences(PREFS_FILE_NAME, 0)
         val gson = Gson()
         val json = sharedPreferences.getString("cocktailList", "")
         val type = object: TypeToken<MutableList<String>>() {}.type
 
-        if(json == null || json == "")
-            favorisArrayList = ArrayList()
-
+        favorisArrayList = if(json == null || json == "")
+            ArrayList()
         else
-            favorisArrayList = gson.fromJson(json, type)
+            gson.fromJson(json, type)
     }
 }

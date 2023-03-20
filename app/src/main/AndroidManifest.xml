@@ -43,7 +43,7 @@
         </activity>
 
         <activity
-            android:name=".CocktailDetails_Page"
+            android:name=".CocktailDetailsPage"
             android:exported="true">
         </activity>
 

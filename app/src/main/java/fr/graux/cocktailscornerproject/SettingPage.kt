@@ -25,7 +25,7 @@ import java.io.File
 import java.io.IOException
 
 
-class Setting_Page : Fragment(R.layout.fragment_setting__page) {
+class SettingPage : Fragment(R.layout.fragment_setting__page) {
 
     private lateinit var settingText:TextView
     @SuppressLint("UseSwitchCompatOrMaterialCode")
@@ -33,7 +33,7 @@ class Setting_Page : Fragment(R.layout.fragment_setting__page) {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var notifSwitch:Switch
     private lateinit var deleteDataBtn:Button
-    private val PREFSFILENAME = "com.app.app.prefs"
+    private val PREFS_FILE_NAME = "com.app.app.prefs"
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @SuppressLint("ResourceType")
@@ -105,7 +105,7 @@ class Setting_Page : Fragment(R.layout.fragment_setting__page) {
             ContextCompat.startActivity(view.context,intent,null)
         }
 
-        deleteDataBtn.setOnClickListener{_->
+        deleteDataBtn.setOnClickListener{
             AlertDialog.Builder(requireContext())
                 .setTitle("Delete")
                 .setMessage("Are you sure you want to delete your favorites bars and cocktails?")
@@ -125,7 +125,7 @@ class Setting_Page : Fragment(R.layout.fragment_setting__page) {
                                 .show()
                         }
                     }
-                    val sharedPreferences = requireContext().getSharedPreferences(PREFSFILENAME, 0)
+                    val sharedPreferences = requireContext().getSharedPreferences(PREFS_FILE_NAME, 0)
                     val editor = sharedPreferences.edit()
                     editor.remove("cocktailList").apply()
                 }

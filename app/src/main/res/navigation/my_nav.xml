@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_map__page" />
     <fragment
         android:id="@+id/setting_Page"
-        android:name="fr.graux.cocktailscornerproject.Setting_Page"
+        android:name="fr.graux.cocktailscornerproject.SettingPage"
         android:label="fragment_setting__page"
         tools:layout="@layout/fragment_setting__page" />
 </navigation>
