@@ -6,7 +6,6 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -17,6 +16,7 @@ import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
+import kotlin.math.roundToInt
 
 
 class CocktailDetailsPage : AppCompatActivity() {
@@ -38,19 +38,18 @@ class CocktailDetailsPage : AppCompatActivity() {
 
         val uiModeManager: UiModeManager = applicationContext
             .getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
-        val mode:Int = uiModeManager.nightMode
-        if(AppCompatDelegate.getDefaultNightMode()== AppCompatDelegate.MODE_NIGHT_YES){
-            btnBack.background=ContextCompat.getDrawable(this,R.drawable.btn_back_dark)
-            nomCocktailView.background=ContextCompat.getDrawable(this,R.drawable.btn_back_dark)
-        }
-        else if(mode==UiModeManager.MODE_NIGHT_YES
-            && AppCompatDelegate.getDefaultNightMode()== AppCompatDelegate.MODE_NIGHT_UNSPECIFIED){
-            btnBack.background=ContextCompat.getDrawable(this,R.drawable.btn_back_dark)
-            nomCocktailView.background=ContextCompat.getDrawable(this,R.drawable.btn_back_dark)
-        }
-        else{
-            btnBack.background=ContextCompat.getDrawable(this,R.drawable.btn_back)
-            nomCocktailView.background=ContextCompat.getDrawable(this,R.drawable.btn_back)
+        val mode: Int = uiModeManager.nightMode
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            btnBack.background = ContextCompat.getDrawable(this, R.drawable.btn_back_dark)
+            nomCocktailView.background = ContextCompat.getDrawable(this, R.drawable.btn_back_dark)
+        } else if (mode == UiModeManager.MODE_NIGHT_YES
+            && AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_UNSPECIFIED
+        ) {
+            btnBack.background = ContextCompat.getDrawable(this, R.drawable.btn_back_dark)
+            nomCocktailView.background = ContextCompat.getDrawable(this, R.drawable.btn_back_dark)
+        } else {
+            btnBack.background = ContextCompat.getDrawable(this, R.drawable.btn_back)
+            nomCocktailView.background = ContextCompat.getDrawable(this, R.drawable.btn_back)
         }
 
         run(id)
@@ -63,7 +62,7 @@ class CocktailDetailsPage : AppCompatActivity() {
 
     }
 
-    private fun run( id: String?) {
+    private fun run(id: String?) {
 
         //on crée un url avec l'id de la boisson qui a été clicker
         val url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=$id"
@@ -87,7 +86,6 @@ class CocktailDetailsPage : AppCompatActivity() {
                 val infoJSONArray: JSONArray = contactJSON.getJSONArray("drinks")
 
 
-
                 //on traite le JSON
                 val objectDetailJSON: JSONObject = infoJSONArray.getJSONObject(0)
 
@@ -100,51 +98,76 @@ class CocktailDetailsPage : AppCompatActivity() {
                 val alcoolique = findViewById<TextView>(R.id.detailCocktailAlcoolique)
                 val instructions = findViewById<TextView>(R.id.detailCocktailInstuction)
                 val ingredients = findViewById<ListView>(R.id.detailCocktailList)
-                val verre =findViewById<TextView>(R.id.detailCocktailVerre)
+                val verre = findViewById<TextView>(R.id.detailCocktailVerre)
                 //on update l'ui avec les données de l'API pour le cocktail selectionée
                 runOnUiThread {
 
 
                     //on remplis le verre :
-                    verre.append(" "+objectDetailJSON.getString("strGlass"))
+                    verre.append(" " + objectDetailJSON.getString("strGlass"))
 
                     //on voit si un nom alternatif existe si oui on le rajoute au titre sinon on met juste le nom
-                    if(objectDetailJSON.getString("strDrinkAlternate") != "null"){
-                        titre.text = objectDetailJSON.getString("strDrink") + " or " + objectDetailJSON.getString("strDrinkAlternate")
-                    }else{
+                    if (objectDetailJSON.getString("strDrinkAlternate") != "null") {
+                        titre.text =
+                            objectDetailJSON.getString("strDrink") + " or " + objectDetailJSON.getString(
+                                "strDrinkAlternate"
+                            )
+                    } else {
                         titre.text = objectDetailJSON.getString("strDrink")
                     }
 
                     //on regarde si la boisson est alcoolisée
-                    if(objectDetailJSON.getString("strAlcoholic")=="Alcoholic"){
+                    if (objectDetailJSON.getString("strAlcoholic") == "Alcoholic") {
                         alcoolique.append(" yes")
-                    }else{
-                        alcoolique.append( "no")
+                    } else {
+                        alcoolique.append("no")
                     }
-                    categories.append(" "+objectDetailJSON.getString("strCategory"))
+                    categories.append(" " + objectDetailJSON.getString("strCategory"))
 
 
                     if (objectDetailJSON.getString("strInstructionsFR") != "null") {
-                        instructions.append(" "+objectDetailJSON.getString("strInstructionsFR"))
+                        instructions.append(" " + objectDetailJSON.getString("strInstructionsFR"))
                     } else {
-                        instructions.append(" "+objectDetailJSON.getString("strInstructions"))
+                        instructions.append(" " + objectDetailJSON.getString("strInstructions"))
                     }
                     for (i in 1..15) {
                         val ingredient = objectDetailJSON.getString("strIngredient$i") + " "
+//
                         val mesure = objectDetailJSON.getString("strMeasure$i")
 
                         if (mesure != "null " && ingredient != "null ") {
-                            Log.d("INGREDIENT1", ingredient)
-                            listIng.add(ingredient + mesure)
+                            //on va convertir les mesures en OZ en ml
+                            if (mesure.contains("oz")) {
+                                //on sépare le string en deux pour récupérer le int
+                                val tabString = mesure.split(" ")
+
+                                val mesureInt: Int
+
+                                //si c'est une fraction on va juste récupérer les chiffres pour les utiliser
+                                if (tabString[0].contains("/")) {
+                                    val tabStringDiv = tabString[0].split("/")
+                                    //on fait la conversion
+                                    mesureInt =
+                                        ((tabStringDiv[0].toDouble() / tabStringDiv[1].toDouble()) * 29.574).roundToInt()
+                                } else {
+                                    //on fait la conversion
+                                    mesureInt = ((tabString[0].toInt()) * 29.574).roundToInt()
+
+                                }
+
+                                //on remplis le champ
+                                val mesureMl = mesureInt.toString() + "ml"
+                                listIng.add(ingredient + mesureMl)
+                            } else {
+                                //on remplis le champ
+                                listIng.add(ingredient + mesure)
+
+                            }
+
                         } else if (ingredient != "null ") {
-                            Log.d("INGREDIENT2", ingredient)
                             listIng.add(ingredient)
                         }
-//                        listIng.add(ingredient + mesure)
-
-                        }
-
-
+                    }
 
 
                     // on below line we are initializing adapter for our list view.
@@ -156,11 +179,6 @@ class CocktailDetailsPage : AppCompatActivity() {
 
                     // on below line we are setting adapter for our list view.
                     ingredients.adapter = adapter
-
-
-
-
-
 
 
                     //fonction qui permet de load l'image à partir d'un lien
