@@ -18,7 +18,7 @@
     <string name="categories">Categories : </string>
     <string name="type_de_verre">Type of glass : </string>
     <string name="retour">Back</string>
-    <string name="ingredient">Ingredient :</string>
+    <string name="ingredient">Ingredients : </string>
     <string name="about_the_app">About the App</string>
     <string name="version">Version : </string>
     <string name="appVersion">1.0.0</string>
@@ -30,7 +30,7 @@
     <string name="release_date">Release Date : </string>
     <string name="descApp">This app is a short university project to manipulate Kotlin</string>
     <string name="description">Description : </string>
-    <string name="featuresApp">Get cocktail receipe, find Bar, have fun!</string>
+    <string name="featuresApp">Get cocktail receipes, find Bar, have fun!</string>
     <string name="features">Features : </string>
     <string name="creditApp">GoogleMap API, Cocktail API</string>
     <string name="credit">Credit : </string>

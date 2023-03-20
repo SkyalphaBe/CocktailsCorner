@@ -106,7 +106,7 @@ class CocktailDetailsPage : AppCompatActivity() {
 
 
                     //on remplis le verre :
-                    verre.append(objectDetailJSON.getString("strGlass"))
+                    verre.append(" "+objectDetailJSON.getString("strGlass"))
 
                     //on voit si un nom alternatif existe si oui on le rajoute au titre sinon on met juste le nom
                     if(objectDetailJSON.getString("strDrinkAlternate") != "null"){
@@ -121,16 +121,13 @@ class CocktailDetailsPage : AppCompatActivity() {
                     }else{
                         alcoolique.append( "no")
                     }
-                    categories.append(" ")
-                    categories.append(objectDetailJSON.getString("strCategory"))
+                    categories.append(" "+objectDetailJSON.getString("strCategory"))
 
 
                     if (objectDetailJSON.getString("strInstructionsFR") != "null") {
-                        instructions.append(" ")
-                        instructions.append(objectDetailJSON.getString("strInstructionsFR"))
+                        instructions.append(" "+objectDetailJSON.getString("strInstructionsFR"))
                     } else {
-                        instructions.append(" ")
-                        instructions.append(objectDetailJSON.getString("strInstructions"))
+                        instructions.append(" "+objectDetailJSON.getString("strInstructions"))
                     }
                     for (i in 1..15) {
                         val ingredient = objectDetailJSON.getString("strIngredient$i") + " "
